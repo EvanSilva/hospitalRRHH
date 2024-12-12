@@ -11,7 +11,6 @@ public class Persona {
 
     @Id
     @Column(name = "DNI", nullable = false)
-
     private String dni = "";
 
     @Column(name = "socialSecurityNumber", nullable = false)
