@@ -1,14 +1,13 @@
 package edu.badpals.hospitalrrhh.workers;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "enfermero")
+@Table(name = "enfermeros")
+@PrimaryKeyJoinColumn(name="dni")
+@DiscriminatorValue(value = "NURSE")
 public class Enfermero extends Persona{
 
-    @Id
-    @Column(name = "enfermero")
-    private int idEnfermero;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "consulta", referencedColumnName = "idConsulta", nullable = false)
@@ -16,7 +15,11 @@ public class Enfermero extends Persona{
 
    @ManyToOne(cascade = CascadeType.ALL)
    @JoinColumn(name = "turno", referencedColumnName = "idTurno", nullable = false)
-    private Turno turno = new Turno();
+   private Turno turno = new Turno();
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medico", referencedColumnName = "dni", nullable = false)
+    private Medico medico;
 
 
 }

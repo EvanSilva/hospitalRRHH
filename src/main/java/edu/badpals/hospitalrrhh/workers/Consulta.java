@@ -1,6 +1,9 @@
 package edu.badpals.hospitalrrhh.workers;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "consultas")
@@ -11,11 +14,16 @@ public class Consulta {
     @Column(name = "idConsulta")
     private int idConsulta;
 
-    @OneToOne(mappedBy = "consultas", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "consulta", cascade = CascadeType.ALL, orphanRemoval = true)
     private Medico medico;
 
-    @OneToOne(mappedBy = "consultas", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(mappedBy = "consulta", cascade = CascadeType.ALL, orphanRemoval = true)
     private Enfermero enfermero;
+
+    @OneToOne
+    @JoinColumn(name = "idPlanta", nullable = false)
+    private Planta planta = new Planta();
+
 
 
 }

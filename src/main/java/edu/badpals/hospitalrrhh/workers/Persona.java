@@ -1,28 +1,30 @@
 package edu.badpals.hospitalrrhh.workers;
 
-import org.hibernate.annotations.Entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 
 @Entity
-@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 @Table(name = "personas")
+@Inheritance(strategy= InheritanceType.JOINED)
+@DiscriminatorColumn(name="tipo_persona",discriminatorType=DiscriminatorType.STRING)
+@DiscriminatorValue(value="PERSON")
 public class Persona {
 
     @Id
-    @Column(name = "DNI", nullable = false)
+    @Column(name = "dni")
     private String dni = "";
 
-    @Column(name = "socialSecurityNumber", nullable = false)
+    @Column(name = "social_security_number", nullable = false)
     private int socialSecurityNumber = 0;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "name", nullable = false)
     private String name = "";
 
-    @Column(name = "Address", nullable = false)
+    @Column(name = "address", nullable = false)
     private String address = "";
 
-    @Column(name = "Phone", nullable = false)
+    @Column(name = "phone", nullable = false)
     private String phone = "";
 
     public Persona() {

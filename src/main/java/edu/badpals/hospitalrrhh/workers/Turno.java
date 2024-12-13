@@ -1,6 +1,6 @@
 package edu.badpals.hospitalrrhh.workers;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,16 +17,34 @@ public class Turno {
     @Column(name = "horario")
     private String horario = "";
 
-    @Column(name = "planta")
-    private int planta = 0;
+    @ManyToOne
+    @JoinColumn(name = "idPlanta", nullable = false)
+    private Planta planta = new Planta();
 
-    public Turno(int idTurno, String horario, int planta) {
+    public Turno(int idTurno, List<Enfermero> enfermeros, String horario, Planta planta) {
         this.idTurno = idTurno;
+        this.enfermeros = enfermeros;
         this.horario = horario;
         this.planta = planta;
     }
 
     public Turno() {
+    }
+
+    public List<Enfermero> getEnfermeros() {
+        return enfermeros;
+    }
+
+    public void setEnfermeros(List<Enfermero> enfermeros) {
+        this.enfermeros = enfermeros;
+    }
+
+    public Planta getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(Planta planta) {
+        this.planta = planta;
     }
 
     public int getIdTurno() {
@@ -45,11 +63,4 @@ public class Turno {
         this.horario = horario;
     }
 
-    public int getPlanta() {
-        return planta;
-    }
-
-    public void setPlanta(int planta) {
-        this.planta = planta;
-    }
 }
