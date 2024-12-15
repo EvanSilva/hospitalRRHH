@@ -1,6 +1,7 @@
 package edu.badpals.hospitalrrhh.workers;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -8,42 +9,27 @@ import java.util.List;
 public class Turno {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idTurno")
-    private int idTurno = 0;
-
-    @OneToMany(mappedBy = "turno", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Enfermero> enfermeros;
+    private int idTurno;
 
     @Column(name = "horario")
-    private String horario = "";
+    private String horario;
 
     @ManyToOne
     @JoinColumn(name = "idPlanta", nullable = false)
-    private Planta planta = new Planta();
+    private Planta planta;
 
-    public Turno(int idTurno, List<Enfermero> enfermeros, String horario, Planta planta) {
-        this.idTurno = idTurno;
-        this.enfermeros = enfermeros;
-        this.horario = horario;
-        this.planta = planta;
-    }
+    @ManyToOne
+    @JoinColumn(name = "persona_id") // Asegúrate de que el nombre de la columna sea correcto
+    private Persona persona;
 
+    // Constructor, Getters y Setters
     public Turno() {
     }
 
-    public List<Enfermero> getEnfermeros() {
-        return enfermeros;
-    }
-
-    public void setEnfermeros(List<Enfermero> enfermeros) {
-        this.enfermeros = enfermeros;
-    }
-
-    public Planta getPlanta() {
-        return planta;
-    }
-
-    public void setPlanta(Planta planta) {
+    public Turno(String horario, Planta planta) {
+        this.horario = horario;
         this.planta = planta;
     }
 
@@ -61,6 +47,14 @@ public class Turno {
 
     public void setHorario(String horario) {
         this.horario = horario;
+    }
+
+    public Planta getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(Planta planta) {
+        this.planta = planta;
     }
 
 }

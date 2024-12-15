@@ -23,7 +23,7 @@ public class Medico extends Persona {
     public Medico() {
     }
 
-    public Medico(String dni, int socialSecurityNumber, String name, String address, String phone, Consulta consulta, List<Citas> historicoConsultas) {
+    public Medico(String dni, int socialSecurityNumber, String name, Address address, String phone, Consulta consulta, List<Citas> historicoConsultas) {
         super(dni, socialSecurityNumber, name, address, phone);
         this.consulta = consulta;
         this.historicoConsultas = historicoConsultas;

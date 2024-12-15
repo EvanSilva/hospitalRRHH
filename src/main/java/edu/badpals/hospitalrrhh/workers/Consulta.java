@@ -2,9 +2,6 @@ package edu.badpals.hospitalrrhh.workers;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
 @Table(name = "consultas")
 public class Consulta {
@@ -20,10 +17,40 @@ public class Consulta {
     @OneToOne(mappedBy = "consulta", cascade = CascadeType.ALL, orphanRemoval = true)
     private Enfermero enfermero;
 
-    @OneToOne
+    @ManyToOne // Cambiado a ManyToOne si hay múltiples consultas por planta
     @JoinColumn(name = "idPlanta", nullable = false)
-    private Planta planta = new Planta();
+    private Planta planta;
 
+    // Getters y Setters
+    public int getIdConsulta() {
+        return idConsulta;
+    }
 
+    public void setIdConsulta(int idConsulta) {
+        this.idConsulta = idConsulta;
+    }
 
+    public Medico getMedico() {
+        return medico;
+    }
+
+    public void setMedico(Medico medico) {
+        this.medico = medico;
+    }
+
+    public Enfermero getEnfermero() {
+        return enfermero;
+    }
+
+    public void setEnfermero(Enfermero enfermero) {
+        this.enfermero = enfermero;
+    }
+
+    public Planta getPlanta() {
+        return planta;
+    }
+
+    public void setPlanta(Planta planta) {
+        this.planta = planta;
+    }
 }

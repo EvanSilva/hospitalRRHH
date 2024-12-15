@@ -3,6 +3,9 @@ package edu.badpals.hospitalrrhh.workers;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "personas")
@@ -21,21 +24,32 @@ public class Persona {
     @Column(name = "name", nullable = false)
     private String name = "";
 
-    @Column(name = "address", nullable = false)
-    private String address = "";
-
     @Column(name = "phone", nullable = false)
     private String phone = "";
+
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Turno> turnos = new ArrayList<>();
+
+    @Embedded
+    @AttributeOverride(name="via", column=@Column(name="calle"))
+    private Address address;
+
+
+    /*
+    public int calcularCargaDeTrabajo() {
+        return turnos.size(); // Devuelve la cantidad de turnos asignados
+    }
+    */
 
     public Persona() {
     }
 
-    public Persona(String dni, int socialSecurityNumber, String name, String address, String phone) {
+    public Persona(String dni, int socialSecurityNumber, String name,  Address address, String phone) {
         this.dni = dni;
         this.socialSecurityNumber = socialSecurityNumber;
         this.name = name;
-        this.address = address;
         this.phone = phone;
+        this.address = address;
     }
 
     public String getDni() {
@@ -62,13 +76,6 @@ public class Persona {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public String getPhone() {
         return phone;
